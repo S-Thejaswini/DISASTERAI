@@ -5,7 +5,7 @@
 <div style="text-align: center;">
   <img src="https://capsule-render.vercel.app/api?type=transparent&height=100&color=141489&text=%20AI-DRIVEN%20DISASTER%20FORECASTING%20AND%20RESPONSE%20SYSTEM🌪️🌍&reversal=false&textBg=false&fontSize=27&fontAlign=50&fontAlignY=50&animation=scaleIn&fontColor=28BAB1&stroke=FEDBFF&descSize=51&section=header" />
 </div>
-### 🌍INTRODUCTION🌊  
+ 🌍INTRODUCTION🌊  
 
 Disasters claim the lives of countless people worldwide, causing not only tragic loss of life but also significant economic and infrastructural damage. However, the impact of such disasters can be mitigated to an extent by predicting them in advance and taking proactive measures.  
 
