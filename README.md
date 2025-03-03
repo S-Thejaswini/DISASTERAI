@@ -3,12 +3,12 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="https://capsule-render.vercel.app/api?type=transparent&height=100&color=141489&text=%20AI-DRIVEN%20DISASTER%20FORECASTING%20AND%20RESPONSE%20SYSTEM🌪️🌍&reversal=false&textBg=false&fontSize=27&fontAlign=50&fontAlignY=50&animation=scaleIn&fontColor=28BAB1&stroke=FEDBFF&descSize=51&section=header" />
+  <img src="https://capsule-render.vercel.app/api?type=transparent&height=100&color=141489&text=%20SENTINEL: %20AI-DRIVEN%20DISASTER%20FORECASTING%20AND%20RESPONSE%20SYSTEM🌪️🌍&reversal=false&textBg=false&fontSize=27&fontAlign=50&fontAlignY=50&animation=scaleIn&fontColor=28BAB1&stroke=FEDBFF&descSize=51&section=header" />
 </div>
 
-## 🌍 **SENTINEL:AI-Driven Disaster Forecasting and Response System**  
+## 🌍SENTINEL:AI-Driven Disaster Forecasting and Response System  
 
-### 📖 **🌍INTRODUCTION🌊 **  
+### 🌍INTRODUCTION🌊 
 Disasters cause widespread destruction, leading to loss of life, economic setbacks, and infrastructure damage. Predicting these events in advance and responding effectively can significantly reduce their impact.  
 
 Our **AI-Driven Disaster Forecasting and Response System** is designed to provide:  
