@@ -3,7 +3,7 @@
 </div>
 
 <div style="text-align: center;">
-  <img src="https://capsule-render.vercel.app/api?type=transparent&height=100&color=141489&text=%20SENTINEL: %20AI-DRIVEN%20DISASTER%20FORECASTING%20AND%20RESPONSE%20SYSTEM🌪️🌍&reversal=false&textBg=false&fontSize=27&fontAlign=50&fontAlignY=50&animation=scaleIn&fontColor=28BAB1&stroke=FEDBFF&descSize=51&section=header" />
+  <img src="https://capsule-render.vercel.app/api?type=transparent&height=100&color=141489&text=%20SENTINEL&reversal=false&textBg=false&fontSize=27&fontAlign=50&fontAlignY=50&animation=scaleIn&fontColor=28BAB1&stroke=FEDBFF&descSize=51&section=header" />
 </div>
 
 ## 🌍SENTINEL:AI-Driven Disaster Forecasting and Response System  
@@ -17,4 +17,4 @@ Our **AI-Driven Disaster Forecasting and Response System** is designed to provid
 ✅ **Alerts & Warnings** to notify users about flood risks in their location.  
 ✅ **Preparedness Assistance** by offering a checklist of essential items and documents.  
 
-By leveraging **machine learning models and AI-powered automation**, this system ensures timely disaster forecasting and response, helping individuals stay informed and prepared.  
+By leveraging **machine learning models**, this system ensures timely disaster forecasting and response, helping individuals stay informed and prepared.  
