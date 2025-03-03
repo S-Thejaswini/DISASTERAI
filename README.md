@@ -5,8 +5,16 @@
 <div style="text-align: center;">
   <img src="https://capsule-render.vercel.app/api?type=transparent&height=100&color=141489&text=%20AI-DRIVEN%20DISASTER%20FORECASTING%20AND%20RESPONSE%20SYSTEM🌪️🌍&reversal=false&textBg=false&fontSize=27&fontAlign=50&fontAlignY=50&animation=scaleIn&fontColor=28BAB1&stroke=FEDBFF&descSize=51&section=header" />
 </div>
- 🌍INTRODUCTION🌊  
 
-Disasters claim the lives of countless people worldwide, causing not only tragic loss of life but also significant economic and infrastructural damage. However, the impact of such disasters can be mitigated to an extent by predicting them in advance and taking proactive measures.  
+## 🌍 **SENTINEL:AI-Driven Disaster Forecasting and Response System**  
 
-This project aims to build an **AI-powered system** capable of predicting disasters, providing responses, and analyzing social media sentiment during emergencies. By leveraging advanced machine learning models, the system focuses on disaster prediction while ensuring timely guidance for affected individuals through a chatbot interface.
+### 📖 **🌍INTRODUCTION🌊 **  
+Disasters cause widespread destruction, leading to loss of life, economic setbacks, and infrastructure damage. Predicting these events in advance and responding effectively can significantly reduce their impact.  
+
+Our **AI-Driven Disaster Forecasting and Response System** is designed to provide:  
+✅ **Accurate Flood Predictions** based on real-time and historical data.  
+✅ **AI-Powered Chatbot Support** for disaster-related queries and emergency guidance.  
+✅ **Alerts & Warnings** to notify users about flood risks in their location.  
+✅ **Preparedness Assistance** by offering a checklist of essential items and documents.  
+
+By leveraging **machine learning models and AI-powered automation**, this system ensures timely disaster forecasting and response, helping individuals stay informed and prepared.  
