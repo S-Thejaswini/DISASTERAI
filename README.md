@@ -16,5 +16,43 @@ Our **AI-Driven Disaster Forecasting and Response System** is designed to provid
 ✅ **AI-Powered Chatbot Support** for disaster-related queries and emergency guidance.  
 ✅ **Alerts & Warnings** to notify users about flood risks in their location.  
 ✅ **Preparedness Assistance** by offering a checklist of essential items and documents.  
+By leveraging **machine learning models**, this system ensures timely disaster forecasting and response, helping individuals stay informed and prepared. 
+### TEAM MEMBERS
+Abishek MS
+Anjith Krishnan K
+S Thejaswini 
+Riya S
+### Hosted Project Link
+https://github.com/S-Thejaswini/DISASTERAI
+### Project Description
+Flooding is among the most devastating natural disasters: it results in loss of lives, damage to
+infrastructure, and economic setbacks. Conventional flood management systems usually face
+challenges of delayed warnings and lack of real-time, localized information, making them
+unprepared and causing much damage. A system that effectively predicts floods and issues timely
+warnings and actionable advice to communities should enhance disaster preparedness.
+This project combines flood prediction through machine learning and real-time notification for
+proactive disaster management. The system also comes with an AI chatbot to guide users by
+suggesting necessary documents, supplies, and safety measures. This way, the preparedness and
+response through clear and timely communication improve and allow communities to take the right
+actions against floods and associated risks.
 
-By leveraging **machine learning models**, this system ensures timely disaster forecasting and response, helping individuals stay informed and prepared.  
+### Problem Statement
+  Increased occurrences and intensification of floods indicate the need for effective disaster
+management systems. Traditional methods cannot provide speed and accuracy for time-bound
+flood forecasting and response. The traditional system depends on fragmented data sources and
+slow communication media, which increase the complexity of disaster management. A system that
+combines real-time data, predictive analysis, and communication to improve preparedness and
+response to floods is needed.
+## Technical Details
+### Technologies/Componenets used
+## Languages used
+  -Python
+  -html
+  -jss
+## Framework used
+  -javascript
+  -Tailwind CSS
+## Libraries used
+  -Flask
+  
+
