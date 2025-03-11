@@ -22,7 +22,7 @@ def chat_response(conversation_history):
         temperature=1,  # Randomness of the response (higher = more creative)
         max_tokens=1024,  # Max number of tokens in the response
         top_p=1,  # Controls diversity
-        stream=False,  # Don't stream, get the full response in one go
+        stream=False, # Don't stream, get the full response in one go
     )
     
     # Extract and return the assistant's response
