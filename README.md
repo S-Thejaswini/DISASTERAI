@@ -18,10 +18,10 @@ Our **AI-Driven Disaster Forecasting and Response System** is designed to provid
 ✅ **Preparedness Assistance** by offering a checklist of essential items and documents.  
 By leveraging **machine learning models**, this system ensures timely disaster forecasting and response, helping individuals stay informed and prepared. 
 ### TEAM MEMBERS
-Abishek MS
-Anjith Krishnan K
-S Thejaswini 
-Riya S
+Abishek MS <br>
+Anjith Krishnan K <br>
+S Thejaswini <br>
+Riya S <br>
 ### Hosted Project Link
 https://github.com/S-Thejaswini/DISASTERAI
 ### Project Description
@@ -46,13 +46,13 @@ response to floods is needed.
 ## Technical Details
 ### Technologies/Componenets used
 ## Languages used
-  -Python
-  -html
-  -jss
+  -Python <br>
+  -html <br>
+  -jss <br>
 ## Framework used
-  -javascript
-  -Tailwind CSS
+  -javascript <br>
+  -Tailwind CSS <br>
 ## Libraries used
-  -Flask
+  -Flask <br>
   
 
