@@ -39,7 +39,7 @@ actions against floods and associated risks.
 ### Problem Statement
   Increased occurrences and intensification of floods indicate the need for effective disaster
 management systems. Traditional methods cannot provide speed and accuracy for time-bound
-flood forecasting and response. The traditional system depends on fragmented data sources and
+flood forecasting and response. The traditional  system depends on fragmented data sources and
 slow communication media, which increase the complexity of disaster management. A system that
 combines real-time data, predictive analysis, and communication to improve preparedness and
 response to floods is needed.
