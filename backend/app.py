@@ -11,10 +11,10 @@ model = joblib.load("flood_model.pkl")
 feature_columns = joblib.load("feature_columns.pkl")
 
 # OpenWeather API Key
-API_KEY = "7d3eb5ae386f7f7a066320ab3d177728"
+API_KEY = "YOUR_API_KEY"
 
 # Initialize Groq chatbot client
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "YOUR_API_KEY"
 client = Groq(api_key=GROQ_API_KEY)
 
 # 🏠 Route for Landing Page
