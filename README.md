@@ -9,6 +9,9 @@
 
 # *****SENTINEL: AI-Powered Disaster Prediction and Prevention System🌊🚨*****
 
+![Logo](https://github.com/S-Thejaswini/DISASTERAI/blob/main/images/logo.img?raw=true)
+
+
 ## ****📝Project Description**** 
 **SENTINEL** is an AI-driven web application designed to predict and mitigate flood risks. By leveraging **machine learning**, **real-time weather data**, and an **AI chatbot**, SENTINEL provides users with early warnings, preparedness guidance, and emergency response strategies.  
 
@@ -116,14 +119,14 @@ Authorization: Bearer {API_KEY}
 - [S Thejaswini](https://github.com/S-Thejaswini)  
 ## ****🎨 Color Reference****
 
-| Color Usage                    | Hex Code |
-|--------------------------------|-----------------------------------------------------------------|
-| Background (Blue & White)      | ![#1E3A8A](https://via.placeholder.com/10/1E3A8A?text=+) `#1E3A8A` (Blue), ![#FFFFFF](https://via.placeholder.com/10/FFFFFF?text=+) `#FFFFFF` (White) |
-| No Flood Risk Message (Green)  | ![#16A34A](https://via.placeholder.com/10/16A34A?text=+) `#16A34A` |
-| No Flood Risk Popup (Green)    | ![#16A34A](https://via.placeholder.com/10/16A34A?text=+) `#16A34A` |
-| Flood Risk Message (Red)       | ![#DC2626](https://via.placeholder.com/10/DC2626?text=+) `#DC2626` |
-| Flood Risk Popup (Red)         | ![#DC2626](https://via.placeholder.com/10/DC2626?text=+) `#DC2626` |
-| Chatbot Background (Blue & White) | ![#1E3A8A](https://via.placeholder.com/10/1E3A8A?text=+) `#1E3A8A` (Blue), ![#FFFFFF](https://via.placeholder.com/10/FFFFFF?text=+) `#FFFFFF` (White) |
+| Color Usage                      | Hex Code     |
+|-----------------------------------|-------------|
+| Background (🔵 Blue & ⚪ White)    | `#1E3A8A`, `#FFFFFF` |
+| No Flood Risk Message (🟢 Green)  | `#16A34A`   |
+| No Flood Risk Popup (🟢 Green)    | `#16A34A`   |
+| Flood Risk Message (🔴 Red)       | `#DC2626`   |
+| Flood Risk Popup (🔴 Red)         | `#DC2626`   |
+| Chatbot Background (🔵 Blue & ⚪ White) | `#1E3A8A`, `#FFFFFF` |
 
 
 ## ****🚀 Demo****
@@ -210,20 +213,20 @@ API_KEY=your_api_key_here   # API key for OpenWeatherMap or other external servi
 GROQ_API_KEY=your_groq_api_key_here   # API key for the Groq AI chatbot  
 SECRET_KEY=your_secret_key_here   # Flask secret key for security  
 
+```
+
+ ##****🌟✨FEATURES****
+
+✅ ***Flood Prediction*** – Provides real-time flood risk predictions using AI and weather data.  
+✅ ***AI Chatbot Assistance*** – Offers disaster-related guidance, important documents, and safety checklists.  
+✅ ***Instant Alerts*** – Sends notifications about flood risks to help users stay prepared.  
+✅ ***Minimal Setup*** – No login or database required for easy access.  
+✅ ***User-Friendly Interface*** – Simple and intuitive design for smooth navigation.  
+✅ ***Fast & Lightweight*** – Optimized for quick performance without heavy dependencies.  
 
 
- ###****🌟✨FEATURES****
 
-✅ Flood Prediction – Provides real-time flood risk predictions using AI and weather data.  
-✅ AI Chatbot Assistance – Offers disaster-related guidance, important documents, and safety checklists.  
-✅ Instant Alerts – Sends notifications about flood risks to help users stay prepared.  
-✅ Minimal Setup – No login or database required for easy access.  
-✅ User-Friendly Interface – Simple and intuitive design for smooth navigation.  
-✅ Fast & Lightweight – Optimized for quick performance without heavy dependencies.  
-
-
-
-## ****Installation****
+## ****⚙️Installation****
 
 Install my-project with npm
 
@@ -258,14 +261,6 @@ This project strengthened our understanding of **AI-augmented software developme
 This project is dual-licensed under the **MIT License** and **Apache 2.0 License**.  
 - [MIT License](https://choosealicense.com/licenses/mit/)  
 - [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0)  
-
-
-
-![Sentinel Logo](https://raw.githubusercontent.com/S-Thejaswini/DISASTERAI/main/sentinel_logo.png)
-
-
-
-
 
 
 ## ****🚀 Optimizations**** 
