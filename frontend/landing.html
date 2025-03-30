@@ -3,72 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTINEL - Flood Prediction System</title>
+    <title>Sentinel - Flood Prediction System</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Custom animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        
+        /* Rain animation */
+        .rain-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: rain linear infinite;
+        }
+        @keyframes rain {
+            0% { transform: translateY(-20px); opacity: 0; }
+            25% { opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
+        }
+    </style>
 </head>
-<body class="bg-blue-50 min-h-screen">
-    <nav class="bg-blue-600 text-white shadow-lg">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold">SENTINEL</a>
-            <div class="space-x-4">
-                <a href="/" class="hover:text-blue-200 transition">Home</a>
-                <a href="/prediction" class="hover:text-blue-200 transition">Prediction</a>
-                <a href="/chatbot" class="hover:text-blue-200 transition">Chatbot</a>
+<body class="bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen">
+    <header class="container mx-auto py-6 px-4">
+        <nav class="flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600 fade-in">Sentinel</div>
+            <div class="flex gap-4">
+                <a href="/" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Home</a>
+                <a href="/prediction" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Prediction</a>
+                <a href="/forecast" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Forecast</a>
+                <a href="/chatbot" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Chatbot</a>
             </div>
-        </div>
-    </nav>
-
-    <header class="py-20 bg-gradient-to-r from-blue-500 to-blue-700 text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Flood Prediction System</h1>
-            <p class="text-xl mb-8">Predict flood risks using real-time weather data</p>
-            <div class="flex justify-center space-x-4">
-                <a href="/prediction" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-100 transition">Get Prediction</a>
-                <a href="/chatbot" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">Ask Chatbot</a>
-            </div>
-        </div>
+        </nav>
     </header>
 
-    <section class="py-16 container mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="text-blue-600 text-4xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
+    <main class="container mx-auto px-4 py-12">
+        <section class="flex flex-col md:flex-row items-center justify-between gap-12 mb-20">
+            <div class="flex-1 fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-slate-800">
+                    Predict Flood Risks <span class="text-blue-600">Before They Happen</span>
+                </h1>
+                <p class="text-lg mb-8 text-slate-600">
+                    Our advanced AI-powered system analyzes weather patterns and historical data to provide accurate flood risk predictions for your location.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="/prediction" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center transition-colors">
+                        Get Prediction
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                    <a href="/chatbot" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium flex items-center justify-center transition-colors">
+                        Ask Our Chatbot
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    </a>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Real-time Predictions</h3>
-                <p class="text-gray-600">Get flood risk predictions based on current weather data from OpenWeather API.</p>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="text-blue-600 text-4xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
+            <div class="flex-1 fade-in delay-200">
+                <div class="bg-white p-6 rounded-lg shadow-xl animate-float rain-container">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900">Weather Widget</h3>
+                            <p class="text-sm text-slate-500">Current Weather Conditions</p>
+                        </div>
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-slate-100 p-3 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                </svg>
+                                <span class="text-sm text-slate-600">Temperature</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-lg font-bold text-slate-900">24.5°C</span>
+                                <span class="text-sm text-slate-500">Min: 18.2°C</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-100 p-3 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                </svg>
+                                <span class="text-sm text-slate-600">Humidity</span>
+                            </div>
+                            <div>
+                                <span class="text-lg font-bold text-slate-900">78%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-slate-100 p-3 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                </svg>
+                                <span class="text-sm text-slate-600">Rainfall</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-lg font-bold text-slate-900">2.3 mm</span>
+                                <span class="text-sm text-slate-500">Next 24h: 5.8 mm</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-100 p-3 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                </svg>
+                                <span class="text-sm text-slate-600">Wind Speed</span>
+                            </div>
+                            <div>
+                                <span class="text-lg font-bold text-slate-900">4.2 m/s</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative h-20 bg-blue-50 rounded-lg overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <p class="text-blue-600 font-medium">Light Rain Expected</p>
+                        </div>
+                        
+                        <!-- Rain animation drops will be added via JavaScript -->
+                        <div id="rain-drops"></div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Machine Learning Model</h3>
-                <p class="text-gray-600">Our system uses a trained machine learning model to analyze weather patterns and predict flood risks.</p>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <div class="text-blue-600 text-4xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">AI Chatbot</h3>
-                <p class="text-gray-600">Ask questions about disasters and get informative responses from our specialized AI chatbot.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="bg-blue-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>© 2025 SENTINEL - Flood Prediction System</p>
+        <section class="mb-20 fade-in delay-300">
+            <h2 class="text-3xl font-bold mb-10 text-center text-slate-800">
+                How It Works
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow fade-in delay-200">
+                    <div class="mb-4 p-3 bg-blue-100 rounded-full inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">Weather Analysis</h3>
+                    <p class="text-slate-600">We collect real-time weather data including rainfall, temperature, humidity, and wind speed.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow fade-in delay-300">
+                    <div class="mb-4 p-3 bg-blue-100 rounded-full inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">Flood Prediction</h3>
+                    <p class="text-slate-600">Our machine learning model analyzes the data to predict flood risks in your area.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow fade-in delay-400">
+                    <div class="mb-4 p-3 bg-blue-100 rounded-full inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800">Disaster Assistance</h3>
+                    <p class="text-slate-600">Get expert advice from our chatbot on how to prepare for and respond to flood disasters.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-center mb-12 fade-in delay-500">
+            <h2 class="text-3xl font-bold mb-6 text-slate-800">
+                Ready to Get Started?
+            </h2>
+            <p class="text-lg mb-8 max-w-2xl mx-auto text-slate-600">
+                Enter your location and get instant flood risk predictions based on current and forecasted weather conditions.
+            </p>
+            <a href="/prediction" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center justify-center transition-colors">
+                Check Flood Risk Now
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-lg font-semibold">Sentinel</p>
+                    <p class="text-sm text-slate-400">Protecting communities through prediction</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="/" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="/prediction" class="text-slate-300 hover:text-white transition-colors">Prediction</a>
+                    <a href="/forecast" class="text-slate-300 hover:text-white transition-colors">Forecast</a>
+                    <a href="/chatbot" class="text-slate-300 hover:text-white transition-colors">Chatbot</a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-700 text-center text-sm text-slate-400">
+                © <span id="current-year"></span> Sentinel. All rights reserved.
+            </div>
         </div>
     </footer>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Create rain animation
+        function createRaindrops() {
+            const container = document.getElementById('rain-drops');
+            const containerWidth = container.offsetWidth;
+            
+            // Create 20 raindrops
+            for (let i = 0; i < 20; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                
+                // Random position and animation properties
+                const left = Math.random() * containerWidth;
+                const height = 5 + Math.random() * 10;
+                const duration = 0.5 + Math.random() * 1.5;
+                const delay = Math.random() * 2;
+                
+                drop.style.left = `${left}px`;
+                drop.style.height = `${height}px`;
+                drop.style.animationDuration = `${duration}s`;
+                drop.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(drop);
+            }
+        }
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', function() {
+            createRaindrops();
+        });
+    </script>
 </body>
 </html>
 
