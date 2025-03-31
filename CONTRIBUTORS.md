@@ -2,11 +2,10 @@
 
 Thanks to everyone who has contributed to this project! 🎉  
 
-## Maintainers
-- [S-Thejaswini](https://github.com/S-Thejaswini) - Project Lead  
-
+  
 ## Contributors
-- [Anjithkrishnan K](https://github.com/AnjithKrishnan-946)  
+- [Anjithkrishnan K](https://github.com/AnjithKrishnan-946)
+- [S-Thejaswini](https://github.com/S-Thejaswini)
 - [Abhishek M S](https://github.com/abhii124)  
 - [Riya S](https://github.com/riyamohandas)
 
