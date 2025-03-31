@@ -128,14 +128,14 @@ Watch this preview:
 
 ## ****📂 Project Structure****
 
-FloodPredictionApp/
+SENTINEL/
 ├── backend/
 │   ├── data/
 │   │   ├── original_dataset/  # Contains raw, unprocessed data files
 │   │   └── processed_dataset/ # Contains cleaned, transformed data for modeling
 │   ├── API_integration.py     # Code for integrating with external APIs (e.g., weather)
 │   ├── data_analysis.py       # Scripts for exploratory data analysis (EDA)
-│   ├── app.py                 # Main backend application file (e.g., Flask)
+│   ├── app.py                 # Main backend application file (e.g., Flask, FastAPI)
 │   ├── chatbot_test.py        # Script for testing chatbot functionality
 │   ├── feature_columns.pkl    # Saved list/object of feature columns used by the model
 │   ├── flood_model.pkl        # The serialized trained machine learning model
@@ -146,9 +146,9 @@ FloodPredictionApp/
 │   ├── landing.html           # The main landing/home page HTML
 │   ├── prediction.html        # HTML page for user input for flood prediction
 │   └── result.html            # HTML page to display prediction results
-├── images/                    # Static assets
+├── image/                     # Static assets (consider renaming to 'assets' or 'static')
 │   ├── Project.mp4            # Project demo video
-│   └── logo.img               # Project logo 
+│   └── logo.img               # Project logo (Note: .img extension is unusual)
 ├── CODE_OF_CONDUCT.md       # Guidelines for contributors
 ├── CONTRIBUTORS.md          # List of project contributors
 ├── LICENSE                  # Project's software license (e.g., MIT)
