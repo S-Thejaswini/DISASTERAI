@@ -18,6 +18,7 @@
         
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
         
         /* Rain animation */
         .rain-container {
@@ -296,16 +297,12 @@
                             
                             <div class="relative h-20 bg-blue-50 rounded-lg overflow-hidden">
                                 <div class="absolute inset-0 flex items-center justify-center">
-                                    <p class="text-blue-600 font-medium">
-                                        {% if rainfall > 2 %}
-                                        Heavy Rain Expected
-                                        {% elif rainfall > 0.5 %}
-                                        Light Rain Expected
-                                        {% else %}
-                                        No Rain Expected
-                                        {% endif %}
+                                    <p class="text-blue-600 font-medium" id="rain-status">
+                                        <!-- Rain status will be set by JavaScript -->
+                                        Checking rainfall...
                                     </p>
                                 </div>
+                            
                                 
                                 <!-- Rain animation drops will be added via JavaScript -->
                                 <div id="rain-drops"></div>
@@ -340,41 +337,65 @@
 
     <script>
         // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // Create rain animation based on rainfall amount and update rain status text
+    function createRaindrops() {
+        const container = document.getElementById('rain-drops');
+        const containerWidth = container.offsetWidth;
         
-        // Create rain animation
-        function createRaindrops() {
-            const container = document.getElementById('rain-drops');
-            if (!container) return;
-            
-            const containerWidth = container.offsetWidth;
-            const rainfall = parseFloat('{{ rainfall }}') + parseFloat('{{ future_rainfall }}');
-            const dropCount = Math.min(Math.ceil(rainfall * 3), 30);
-            
-            // Create raindrops
-            for (let i = 0; i < dropCount; i++) {
-                const drop = document.createElement('div');
-                drop.className = 'raindrop';
-                
-                // Random position and animation properties
-                const left = Math.random() * containerWidth;
-                const height = 5 + Math.random() * 10;
-                const duration = 0.5 + Math.random() * 1.5;
-                const delay = Math.random() * 2;
-                
-                drop.style.left = `${left}px`;
-                drop.style.height = `${height}px`;
-                drop.style.animationDuration = `${duration}s`;
-                drop.style.animationDelay = `${delay}s`;
-                
-                container.appendChild(drop);
-            }
+        // Get rainfall values and convert to numbers
+        const currentRainfall = parseFloat("{{ rainfall }}");
+        const futureRainfall = parseFloat("{{ future_rainfall }}");
+        const totalRainfall = currentRainfall + futureRainfall;
+        
+        // Update rain status text based on rainfall
+        const rainStatus = document.getElementById('rain-status');
+        if (currentRainfall > 5 || totalRainfall > 10) {
+            rainStatus.textContent = "Heavy Rain Expected";
+            rainStatus.classList.add('text-red-600');
+            rainStatus.classList.remove('text-blue-600', 'text-green-600');
+        } else if (currentRainfall > 0.5 || totalRainfall > 2) {
+            rainStatus.textContent = "Light Rain Expected";
+        } else {
+            rainStatus.textContent = "No Rain Expected";
+            rainStatus.classList.add('text-green-600');
+            rainStatus.classList.remove('text-blue-600', 'text-red-600');
         }
         
-        // Initialize animations when page loads
-        window.addEventListener('load', function() {
-            createRaindrops();
+        // Calculate number of drops based on rainfall
+        const dropCount = Math.min(Math.ceil(totalRainfall * 3), 30);
+        
+        // Create raindrops
+        for (let i = 0; i < dropCount; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'raindrop';
+            
+            // Random position and animation properties
+            const left = Math.random() * containerWidth;
+            const height = 5 + Math.random() * 10;
+            const duration = 0.5 + Math.random() * 1.5;
+            const delay = Math.random() * 2;
+            
+            drop.style.left = `${left}px`;
+            drop.style.height = `${height}px`;
+            drop.style.animationDuration = `${duration}s`;
+            drop.style.animationDelay = `${delay}s`;
+            
+            container.appendChild(drop);
+        }
+    }
+    
+    // Initialize animations when page loads
+    window.addEventListener('load', function() {
+        createRaindrops();
+        
+        // Add fade-in animations
+        const elements = document.querySelectorAll('.fade-in');
+        elements.forEach(el => {
+            el.style.opacity = '1';
         });
+    });
     </script>
 
     <!-- Add this just before the closing </body> tag -->
