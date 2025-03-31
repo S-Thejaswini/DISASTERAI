@@ -129,31 +129,31 @@ Watch this preview:
 ## ****📂 Project Structure****
 
 DISASTERAI/
-+-- backend/
-|   +-- data/
-|   |   +-- original_dataset/
-|   |   \-- processed_dataset/
-|   +-- API_integration.py
-|   +-- data_analysis.py
-|   +-- app.py
-|   +-- chatbot_test.py
-|   +-- feature_columns.pkl
-|   +-- flood_model.pkl
-|   \-- flood_prediction_model.py
-+-- frontend/
-|   +-- chatbot.html
-|   +-- forecast.html
-|   +-- landing.html
-|   +-- prediction.html
-|   \-- result.html
-+-- image/
-|   +-- Project.mp4
-|   \-- logo.img
-+-- CODE_OF_CONDUCT.md
-+-- CONTRIBUTORS.md
-+-- LICENSE
-+-- README.md
-\-- requirements.txt
+  backend/
+    data/
+      original_dataset/
+      processed_dataset/
+    API_integration.py
+    data_analysis.py
+    app.py
+    chatbot_test.py
+    feature_columns.pkl
+    flood_model.pkl
+    flood_prediction_model.py
+  frontend/
+    chatbot.html
+    forecast.html
+    landing.html
+    prediction.html
+    result.html
+  image/
+    Project.mp4
+    logo.img
+  CODE_OF_CONDUCT.md
+  CONTRIBUTORS.md
+  LICENSE
+  README.md
+  requirements.txt
 
 
 ## ****📚 Appendix****
