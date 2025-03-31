@@ -132,7 +132,7 @@ Authorization: Bearer {API_KEY}
 ## ****🚀 Demo****
 
 Check out the live demo here:  
-[![Image](https://github.com/user-attachments/assets/890fb45b-c32b-4515-bc1f-f69311c4a709)](https://github.com/user-attachments/assets/4489e7ec-8d9a-484e-8665-1dc58c1ef9df)
+
 
 
 Or watch this preview:  
