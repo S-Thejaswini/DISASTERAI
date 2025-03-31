@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast - Sentinel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        
+        /* Loading animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Rain animation */
+        .rain-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: rain linear infinite;
+        }
+        @keyframes rain {
+            0% { transform: translateY(-20px); opacity: 0; }
+            25% { opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
+        }
+        
+        /* Weather icons */
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen">
+    <header class="container mx-auto py-6 px-4">
+        <nav class="flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-blue-600">Sentinel</a>
+            <div class="flex gap-4">
+                <a href="/" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Home</a>
+                <a href="/prediction" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Prediction</a>
+                <a href="/forecast" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Forecast</a>
+                <a href="/chatbot" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Chatbot</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="mb-8 fade-in">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center text-slate-800">
+                3-Day Weather Forecast
+            </h1>
+            <p class="text-lg text-center max-w-2xl mx-auto text-slate-600">
+                Get a detailed weather forecast for the next 3 days to help you plan and stay prepared.
+            </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto fade-in delay-100">
+            {% if error %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+            
+            <div class="bg-white shadow-xl rounded-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold mb-4 text-center">Enter Location</h2>
+                    <form action="/forecast" method="POST" class="space-y-4">
+                        <div class="flex space-x-2">
+                            <input 
+                                type="text" 
+                                id="location" 
+                                name="location" 
+                                placeholder="e.g., London, New York, Tokyo" 
+                                required
+                                class="flex-1 px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50"
+                                value="{{ location }}"
+                            >
+                            <button 
+                                type="submit" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center justify-center transition-colors"
+                                id="submit-btn"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                Get Forecast
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            {% if forecast %}
+            <div class="fade-in delay-200">
+                <div class="bg-white shadow-xl rounded-lg overflow-hidden mb-8">
+                    <div class="bg-blue-600 text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-2xl font-bold">{{ forecast.city.name }}, {{ forecast.city.country }}</h2>
+                                <p class="text-blue-100">3-Day Weather Forecast</p>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {% for day in forecast.days %}
+                            <div class="bg-slate-50 rounded-lg overflow-hidden shadow-md">
+                                <div class="bg-blue-500 text-white p-4">
+                                    <h3 class="font-bold text-lg">{{ day.date.strftime('%A') }}</h3>
+                                    <p class="text-sm text-blue-100">{{ day.date.strftime('%B %d, %Y') }}</p>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div>
+                                            <p class="text-3xl font-bold text-slate-800">{{ "%.1f"|format(day.max_temp) }}°C</p>
+                                            <p class="text-sm text-slate-500">Min: {{ "%.1f"|format(day.min_temp) }}°C</p>
+                                        </div>
+                                        <div>
+                                            <img src="http://openweathermap.org/img/wn/{{ day.icon }}@2x.png" alt="{{ day.description }}" class="weather-icon">
+                                            <p class="text-sm text-center text-slate-600 capitalize">{{ day.description }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-2 mb-4">
+                                        <div class="bg-slate-100 p-2 rounded">
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                                </svg>
+                                                <span class="text-xs text-slate-600">Humidity</span>
+                                            </div>
+                                            <p class="text-sm font-bold">{{ day.humidity }}%</p>
+                                        </div>
+                                        
+                                        <div class="bg-slate-100 p-2 rounded">
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                </svg>
+                                                <span class="text-xs text-slate-600">Wind</span>
+                                            </div>
+                                            <p class="text-sm font-bold">{{ "%.1f"|format(day.wind_speed) }} m/s</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-slate-100 p-2 rounded mb-4">
+                                        <div class="flex items-center mb-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                            </svg>
+                                            <span class="text-xs text-slate-600">Rainfall</span>
+                                        </div>
+                                        <p class="text-sm font-bold">{{ "%.1f"|format(day.rainfall) }} mm</p>
+                                    </div>
+                                    
+                                    <div class="border-t border-slate-200 pt-3">
+                                        <p class="text-xs text-slate-500 mb-2">Hourly Forecast:</p>
+                                        <div class="flex overflow-x-auto pb-2">
+                                            {% for entry in day.entries[:8] %}
+                                            <div class="flex-shrink-0 w-16 text-center mr-2">
+                                                <p class="text-xs text-slate-600">{{ entry.time }}</p>
+                                                <img src="http://openweathermap.org/img/wn/{{ entry.icon }}.png" alt="{{ entry.description }}" class="w-8 h-8 mx-auto">
+                                                <p class="text-xs font-bold">{{ "%.1f"|format(entry.temp) }}°C</p>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 border-t border-blue-100">
+                        <div class="flex items-center text-sm text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <p>Data provided by OpenWeatherMap. Updated as of {{ forecast.days[0].date.strftime('%Y-%m-%d %H:%M') }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+                    <h3 class="text-lg font-bold mb-4 text-slate-800">Weather Insights</h3>
+                    <div class="space-y-4">
+                        {% set has_rain = false %}
+                        {% for day in forecast.days %}
+                            {% if day.rainfall > 0 %}
+                                {% set has_rain = true %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if has_rain %}
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 p-2 rounded-full mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Rainfall Expected</h4>
+                                <p class="text-slate-600">Rainfall is expected in the next few days. Consider monitoring local flood alerts if you're in a flood-prone area.</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Temperature Range</h4>
+                                <p class="text-slate-600">
+                                    Expected temperature range for the next 3 days: 
+                                    {{ "%.1f"|format(forecast.days|map(attribute='min_temp')|min) }}°C to 
+                                    {{ "%.1f"|format(forecast.days|map(attribute='max_temp')|max) }}°C
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Stay Prepared</h4>
+                                <p class="text-slate-600">Check back regularly for updated forecasts. Weather conditions can change rapidly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-lg font-semibold">Sentinel</p>
+                    <p class="text-sm text-slate-400">Protecting communities through prediction</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="/" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="/prediction" class="text-slate-300 hover:text-white transition-colors">Prediction</a>
+                    <a href="/forecast" class="text-slate-300 hover:text-white transition-colors">Forecast</a>
+                    <a href="/chatbot" class="text-slate-300 hover:text-white transition-colors">Chatbot</a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-700 text-center text-sm text-slate-400">
+                © <span id="current-year"></span> Sentinel. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Add loading state to form submission
+        document.querySelector('form').addEventListener('submit', function() {
+            const button = document.getElementById('submit-btn');
+            button.innerHTML = `
+                <div class="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                Loading...
+            `;
+            button.disabled = true;
+        });
+    </script>
+
+
+</body>
+</html>
