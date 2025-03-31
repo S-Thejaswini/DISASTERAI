@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Response Chatbot - Sentinel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        
+        /* Message animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+        }
+        .typing-dot {
+            height: 8px;
+            width: 8px;
+            margin: 0 1px;
+            background-color: #94a3b8;
+            border-radius: 50%;
+            animation: bounce 1.3s linear infinite;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen">
+    <header class="container mx-auto py-6 px-4">
+        <nav class="flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-blue-600">Sentinel</a>
+            <div class="flex gap-4">
+                <a href="/" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Home</a>
+                <a href="/prediction" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Prediction</a>
+                <a href="/forecast" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Forecast</a>
+                <a href="/chatbot" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Chatbot</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="mb-8 fade-in">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center text-slate-800">
+                Disaster Response Chatbot
+            </h1>
+            <p class="text-lg text-center max-w-2xl mx-auto text-slate-600">
+                Ask questions about flood preparation, response, and recovery. Our AI assistant is here to help.
+            </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto fade-in delay-100">
+            <div class="bg-white shadow-xl rounded-lg overflow-hidden h-[600px] flex flex-col">
+                <div class="border-b border-slate-200 p-4 flex items-center">
+                    <a href="/" class="mr-2 p-2 rounded-full hover:bg-slate-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </a>
+                    <div class="flex items-center">
+                        <div class="bg-slate-500 h-8 w-8 rounded-full flex items-center justify-center mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                            </svg>
+                        </div>
+                        <h2 class="text-lg font-bold">Disaster Response Assistant</h2>
+                    </div>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto p-4" id="chat-messages">
+                    <!-- Bot welcome message -->
+                    <div class="flex mb-4 message">
+                        <div class="bg-slate-500 h-8 w-8 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                            </svg>
+                        </div>
+                        <div class="bg-slate-200 p-3 rounded-lg max-w-[80%]">
+                            <p>Hello! I'm your disaster response assistant. How can I help you today?</p>
+                            <p class="text-xs text-slate-500 mt-1">
+                                {% if now %}
+                                {{ now.strftime('%I:%M %p') }}
+                                {% else %}
+                                {{ now().strftime('%I:%M %p') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    {% if user_message and bot_response %}
+                    <!-- User message -->
+                    <div class="flex justify-end mb-4 message">
+                        <div class="bg-blue-500 p-3 rounded-lg max-w-[80%] text-white">
+                            <p>{{ user_message }}</p>
+                            <p class="text-xs text-blue-200 mt-1">
+                                {% if now %}
+                                {{ now.strftime('%I:%M %p') }}
+                                {% else %}
+                                {{ now().strftime('%I:%M %p') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center ml-2 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Bot response -->
+                    <!-- Bot response -->
+                    <div class="flex mb-4 message">
+                        <div class="bg-slate-500 h-8 w-8 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                            </svg>
+                        </div>
+                        <div class="bg-slate-200 p-3 rounded-lg max-w-[80%]">
+                            <div class="whitespace-pre-line">{{ bot_response }}</div>
+                            <p class="text-xs text-slate-500 mt-1">
+                                {% if now %}
+                                {{ now.strftime('%I:%M %p') }}
+                                {% else %}
+                                {{ now().strftime('%I:%M %p') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="border-t border-slate-200 p-4">
+                    <form action="/chatbot" method="POST" class="flex space-x-2" id="chat-form">
+                        <input 
+                            type="text" 
+                            name="message" 
+                            placeholder="Type your message..." 
+                            class="flex-1 px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50"
+                            required
+                        >
+                        <button 
+                            type="submit" 
+                            class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-lg font-semibold">Sentinel</p>
+                    <p class="text-sm text-slate-400">Protecting communities through prediction</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="/" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="/prediction" class="text-slate-300 hover:text-white transition-colors">Prediction</a>
+                    <a href="/forecast" class="text-slate-300 hover:text-white transition-colors">Forecast</a>
+                    <a href="/chatbot" class="text-slate-300 hover:text-white transition-colors">Chatbot</a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-700 text-center text-sm text-slate-400">
+                © <span id="current-year"></span> Sentinel. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Scroll to bottom of chat
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Scroll to bottom on page load
+        window.addEventListener('load', scrollToBottom);
+        
+        // Add loading state to form submission
+        document.getElementById('chat-form').addEventListener('submit', function(e) {
+            const input = this.querySelector('input');
+            const message = input.value.trim();
+            
+            if (!message) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Create typing indicator
+            const chatMessages = document.getElementById('chat-messages');
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'flex mb-4 message';
+            typingIndicator.id = 'typing-indicator';
+            typingIndicator.innerHTML = `
+                <div class="bg-slate-500 h-8 w-8 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    </svg>
+                </div>
+                <div class="bg-slate-200 p-3 rounded-lg">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(typingIndicator);
+            scrollToBottom();
+        });
+    </script>
+</body>
+</html>
