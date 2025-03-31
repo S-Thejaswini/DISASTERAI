@@ -224,7 +224,7 @@ SECRET_KEY=your_secret_key_here   # Flask secret key for security
 ```
 
 
- ##****🌟✨FEATURES****
+ ## ****🌟✨FEATURES****
 
 ✅ ***Flood Prediction*** – Provides real-time flood risk predictions using AI and weather data.  
 ✅ ***AI Chatbot Assistance*** – Offers disaster-related guidance, important documents, and safety checklists.  
@@ -234,15 +234,6 @@ SECRET_KEY=your_secret_key_here   # Flask secret key for security
 ✅ ***Fast & Lightweight*** – Optimized for quick performance without heavy dependencies.  
 
 
-
-## ****⚙️Installation****
-
-Install my-project with npm
-
-```bash
-  npm install my-project
-  cd my-project
-```
     
 ## ****📚 Lessons Learned**** 
 
@@ -398,13 +389,15 @@ This **technology stack** enables **Sentinel** to function as a **flood predicti
 - [Tailwind CSS](https://tailwindcss.com/) - For frontend styling.
   
 
-## ****Running Tests****
+## ****🛠️ TESTING****
 
-To run tests, run the following command
+To ensure that the API keys work correctly, the following test scripts were created:
 
-```bash
-  npm run test
-```
+- **[API_integration.py](backend/API_integration.py)** - Verifies API integration and responses.  
+- **[chatbot_test.py](backend/chatbot_test.py)** - Tests the chatbot functionality and API connectivity.  
+
+These scripts confirm that all required APIs function properly before integrating them into the main application.
+
 
 
 
