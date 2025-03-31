@@ -130,13 +130,8 @@ Authorization: Bearer {API_KEY}
 
 
 ## ****🚀 Demo****
-
-Check out the live demo here:  
-
-
-
-Or watch this preview:  
-![Demo](https://your-online-gif-link.gif)
+Watch this preview:  
+[![Demo](https://your-online-gif-link.gif)](https://github.com/user-attachments/assets/01216e10-372e-421d-afeb-046dcbcb5e11)
 
 
 
