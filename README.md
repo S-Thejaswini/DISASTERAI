@@ -128,6 +128,9 @@ Watch this preview:
 
 ## ****📂 Project Structure****
 
+## Project Structure
+
+```text
 DISASTERAI/
   backend/
     data/
@@ -154,6 +157,7 @@ DISASTERAI/
   LICENSE
   README.md
   requirements.txt
+```
 
 
 ## ****📚 Appendix****
