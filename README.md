@@ -126,6 +126,36 @@ Watch this preview:
 [https://github.com/user-attachments/assets/6d979e25-3ef0-4119-a642-745943c73339](https://github.com/user-attachments/assets/6d979e25-3ef0-4119-a642-745943c73339)
 
 
+## ****📂 Project Structure****
+
+FloodPredictionApp/
+├── backend/
+│   ├── data/
+│   │   ├── original_dataset/  # Contains raw, unprocessed data files
+│   │   └── processed_dataset/ # Contains cleaned, transformed data for modeling
+│   ├── API_integration.py     # Code for integrating with external APIs (e.g., weather)
+│   ├── data_analysis.py       # Scripts for exploratory data analysis (EDA)
+│   ├── app.py                 # Main backend application file (e.g., Flask)
+│   ├── chatbot_test.py        # Script for testing chatbot functionality
+│   ├── feature_columns.pkl    # Saved list/object of feature columns used by the model
+│   ├── flood_model.pkl        # The serialized trained machine learning model
+│   └── flood_prediction_model.py # Code defining the model, training, and prediction logic
+├── frontend/
+│   ├── chatbot.html           # HTML page for the chatbot interface
+│   ├── forecast.html          # HTML page for displaying weather/flood forecasts
+│   ├── landing.html           # The main landing/home page HTML
+│   ├── prediction.html        # HTML page for user input for flood prediction
+│   └── result.html            # HTML page to display prediction results
+├── images/                    # Static assets
+│   ├── Project.mp4            # Project demo video
+│   └── logo.img               # Project logo 
+├── CODE_OF_CONDUCT.md       # Guidelines for contributors
+├── CONTRIBUTORS.md          # List of project contributors
+├── LICENSE                  # Project's software license (e.g., MIT)
+├── README.md                # Project overview, setup, and usage instructions
+└── requirements.txt         # List of Python dependencies for the backend
+
+
 
 ## ****📚 Appendix****
 
@@ -135,9 +165,7 @@ Here are additional details and references related to this project:
 - **Installation Guide**: [Setup Instructions](#)  
 - **API References**: [API Documentation](#)  
 - **Acknowledgments**: Special thanks to contributors and resources that helped build this project.  
-- **Useful Links**:  
-  - [Official Website](#)  
-  - [GitHub Repository](#)  
+- **Useful Links**:     
   - [Related Research Papers](#)  
 
 For any queries, feel free to reach out or open an issue. 🚀
