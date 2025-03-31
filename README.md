@@ -19,16 +19,7 @@ This system is built with a **Flask backend**, a **user-friendly frontend using 
 
 With **real-time flood monitoring, instant alerts, and an interactive chatbot**, SENTINEL ensures communities stay informed and prepared, reducing disaster impact and enhancing resilience.
 
-
-
-## ****🌟Acknowledgements****
-
-- [OpenWeatherMap API](https://openweathermap.org/api) - For real-time weather data.  
-- [Scikit-learn](https://scikit-learn.org/) - Used for ML model implementation.  
-- [Flask](https://flask.palletsprojects.com/) - For backend development.  
-- [Groq API](https://groq.com/) - AI chatbot support.  
-- [Tailwind CSS](https://tailwindcss.com/) - For frontend styling.  
-- [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates) - Inspiration for this README.  
+   
 
 ## ****🔗API Reference****
 
@@ -134,13 +125,6 @@ Watch this preview:
 
 [https://github.com/user-attachments/assets/6d979e25-3ef0-4119-a642-745943c73339](https://github.com/user-attachments/assets/6d979e25-3ef0-4119-a642-745943c73339)
 
-## ****📦Deployment****
-
-To deploy this project run
-
-```bash
-  npm run deploy
-```
 
 
 ## ****📚 Appendix****
@@ -167,8 +151,7 @@ For any queries, feel free to reach out or open an issue. 🚀
 [![Made with AI](https://img.shields.io/badge/Made%20With-AI%20%26%20ML-purple)](#)  
 [![Flood Prediction](https://img.shields.io/badge/Feature-Flood%20Prediction-blue)](#)  
 [![Chatbot](https://img.shields.io/badge/Feature-AI%20Chatbot-orange)](#)  
-[![License: MIT & Apache 2.0](https://img.shields.io/badge/License-MIT%20%2B%20Apache%202.0-blue.svg)](https://opensource.org/licenses/)
- 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Contributors](https://img.shields.io/github/contributors/S-Thejaswini/DISASTERAI.svg)](https://github.com/S-Thejaswini/DISASTERAI/graphs/contributors)  
 [![Open Issues](https://img.shields.io/github/issues/S-Thejaswini/DISASTERAI.svg)](https://github.com/S-Thejaswini/DISASTERAI/issues)  
 [![Forks](https://img.shields.io/github/forks/S-Thejaswini/DISASTERAI.svg)](https://github.com/S-Thejaswini/DISASTERAI/network/members)  
@@ -186,7 +169,7 @@ For any queries, feel free to reach out or open an issue. 🚀
 
 Contributions are always welcome!  
 
-- See [`CONTRIBUTING.md`](https://github.com/S-Thejaswini/DISASTERAI/blob/main/CONTRIBUTING.md) for ways to get started.  
+- See [`CONTRIBUTORS.md`](https://github.com/S-Thejaswini/DISASTERAI/blob/main/CONTRIBUTORS.md) for ways to get started.  
 - Please adhere to this project's [`CODE_OF_CONDUCT.md`](https://github.com/S-Thejaswini/DISASTERAI/blob/main/CODE_OF_CONDUCT.md).  
 
 We appreciate your support in making this project better! 🚀  
@@ -207,8 +190,8 @@ To run this project, you need to add the following environment variables to your
 API_KEY=your_api_key_here   # API key for OpenWeatherMap or other external services  
 GROQ_API_KEY=your_groq_api_key_here   # API key for the Groq AI chatbot  
 SECRET_KEY=your_secret_key_here   # Flask secret key for security  
-
 ```
+
 
  ##****🌟✨FEATURES****
 
@@ -255,7 +238,7 @@ This project strengthened our understanding of **AI-augmented software developme
 
 This project is dual-licensed under the **MIT License** and **Apache 2.0 License**.  
 - [MIT License](https://choosealicense.com/licenses/mit/)  
-- [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0)  
+
 
 
 ## ****🚀 Optimizations**** 
@@ -316,17 +299,10 @@ Now, Sentinel should be up and running locally 🚀🔥
 
 
 
-
-## ****📸 Screenshots**** 
-
-![Sentinel Dashboard](https://raw.githubusercontent.com/your-username/repo-name/main/path-to-your-image.png)  
-
-
-
 ## ****🛠️ Support****  
 
 For support, reach out via:  
-📧 Email: [sthejaswini056@gmail.com](sthejaswini056@gmail.com)  
+📧 Email: [sentinelfloodprediction@gmail.com](sentinelfloodprediction@gmail.com)  
 
 
 
@@ -382,7 +358,14 @@ A comprehensive breakdown of the technology stack and tools used in the **Sentin
 
 This **technology stack** enables **Sentinel** to function as a **flood prediction system**, combining web development, data science, and real-time APIs.  
 
+## ****🌟Acknowledgements****
 
+- [OpenWeatherMap API](https://openweathermap.org/api) - For real-time weather data.  
+- [Scikit-learn](https://scikit-learn.org/) - Used for ML model implementation.  
+- [Flask](https://flask.palletsprojects.com/) - For backend development.  
+- [Groq API](https://groq.com/) - AI chatbot support.  
+- [Tailwind CSS](https://tailwindcss.com/) - For frontend styling.
+  
 
 ## ****Running Tests****
 
