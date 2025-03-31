@@ -38,7 +38,7 @@ With **real-time flood monitoring, instant alerts, and an interactive chatbot**,
 ## ****🚀 Demo****
 
 Watch this preview:  
-[https://github.com/user-attachments/assets/6d979e25-3ef0-4119-a642-745943c73339](https://github.com/user-attachments/assets/6d979e25-3ef0-4119-a642-745943c73339)
+
 
 
 
