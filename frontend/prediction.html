@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Risk Prediction - Sentinel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        
+        /* Loading animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Rain animation */
+        .rain-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: rain linear infinite;
+        }
+        @keyframes rain {
+            0% { transform: translateY(-20px); opacity: 0; }
+            25% { opacity: 1; }
+            100% { transform: translateY(100px); opacity: 0; }
+        }
+    </style>
+
+    <!-- Add this to the <head> section after existing styles -->
+<style>
+    /* Notification styles */
+    .notification-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        max-width: 350px;
+    }
+    
+    .notification {
+        padding: 16px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateX(120%);
+        transition: transform 0.4s ease-out;
+        display: flex;
+        align-items: flex-start;
+    }
+    
+    .notification.show {
+        transform: translateX(0);
+    }
+    
+    .notification-icon {
+        margin-right: 12px;
+        flex-shrink: 0;
+    }
+    
+    .notification-content {
+        flex: 1;
+    }
+    
+    .notification-title {
+        font-weight: bold;
+        margin-bottom: 4px;
+    }
+    
+    .notification-message {
+        font-size: 0.9rem;
+    }
+    
+    .notification-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 8px;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+    
+    .notification-close:hover {
+        opacity: 1;
+    }
+    
+    /* Flood alert (red) */
+    .notification-flood {
+        background-color: #fee2e2;
+        border-left: 4px solid #ef4444;
+        color: #b91c1c;
+    }
+    
+    /* Safe alert (green) */
+    .notification-safe {
+        background-color: #dcfce7;
+        border-left: 4px solid #22c55e;
+        color: #166534;
+    }
+    
+    /* Info alert (blue) */
+    .notification-info {
+        background-color: #dbeafe;
+        border-left: 4px solid #3b82f6;
+        color: #1e40af;
+    }
+</style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-blue-100 min-h-screen">
+    <header class="container mx-auto py-6 px-4">
+        <nav class="flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-blue-600">Sentinel</a>
+            <div class="flex gap-4">
+                <a href="/" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Home</a>
+                <a href="/prediction" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Prediction</a>
+                <a href="/forecast" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Forecast</a>
+                <a href="/chatbot" class="px-4 py-2 rounded hover:bg-blue-100 transition-colors">Chatbot</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="mb-8 fade-in">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center text-slate-800">
+                Flood Risk Prediction
+            </h1>
+            <p class="text-lg text-center max-w-2xl mx-auto text-slate-600">
+                Enter your location to get a real-time flood risk assessment based on current and forecasted weather conditions.
+            </p>
+        </div>
+
+        <div class="max-w-md mx-auto fade-in delay-100">
+            <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold mb-4 text-center">Enter Location</h2>
+                    <form action="/predict" method="POST" class="space-y-4">
+                        <div class="space-y-2">
+                            <label for="location" class="block text-sm font-medium text-slate-700">City or Town</label>
+                            <input 
+                                type="text" 
+                                id="location" 
+                                name="location" 
+                                placeholder="e.g., London, New York, Tokyo" 
+                                required
+                                class="w-full px-4 py-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-slate-50"
+                            >
+                        </div>
+                        <button 
+                            type="submit" 
+                            class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center justify-center transition-colors"
+                            id="submit-btn"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            Get Prediction
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-lg font-semibold">Sentinel</p>
+                    <p class="text-sm text-slate-400">Protecting communities through prediction</p>
+                </div>
+                <div class="flex gap-6">
+                    <a href="/" class="text-slate-300 hover:text-white transition-colors">Home</a>
+                    <a href="/prediction" class="text-slate-300 hover:text-white transition-colors">Prediction</a>
+                    <a href="/forecast" class="text-slate-300 hover:text-white transition-colors">Forecast</a>
+                    <a href="/chatbot" class="text-slate-300 hover:text-white transition-colors">Chatbot</a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-slate-700 text-center text-sm text-slate-400">
+                © <span id="current-year"></span> Sentinel. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Add loading state to form submission
+        document.querySelector('form').addEventListener('submit', function() {
+            const button = document.getElementById('submit-btn');
+            button.innerHTML = `
+                <div class="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
+                Processing...
+            `;
+            button.disabled = true;
+        });
+    </script>
+<!-- Add this just before the closing </body> tag -->
+<div class="notification-container" id="notification-container"></div>
+<script>
+    // Notification system
+    function showNotification(type, title, message, duration = 5000) {
+        const container = document.getElementById('notification-container');
+        
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = notification notification-${type};
+        
+        // Icon based on type
+        let iconSvg = '';
+        if (type === 'flood') {
+            iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>`;
+        } else if (type === 'safe') {
+            iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>`;
+        } else {
+            iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>`;
+        }
+        
+        // Build notification HTML
+        notification.innerHTML = `
+            <div class="notification-icon">${iconSvg}</div>
+            <div class="notification-content">
+                <div class="notification-title">${title}</div>
+                <div class="notification-message">${message}</div>
+            </div>
+            <button class="notification-close">&times;</button>
+        `;
+        
+        // Add to container
+        container.appendChild(notification);
+        
+        // Show notification with animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Set up close button
+        const closeButton = notification.querySelector('.notification-close');
+        closeButton.addEventListener('click', () => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                container.removeChild(notification);
+            }, 400);
+        });
+        
+        // Auto-close after duration
+        if (duration) {
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            container.removeChild(notification);
+                        }
+                    }, 400);
+                }
+            }, duration);
+        }
+        
+        return notification;
+    }
+</script>
+
+</body>
+</html>
