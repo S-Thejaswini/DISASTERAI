@@ -131,7 +131,7 @@ Authorization: Bearer {API_KEY}
 
 ## ****🚀 Demo****
 Watch this preview:  
-https://github.com/user-attachments/assets/aa3e6802-3736-48c0-8a2d-f63bd3548970
+
 
 ## ****📦Deployment****
 
