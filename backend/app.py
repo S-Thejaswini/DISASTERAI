@@ -41,9 +41,19 @@ model = joblib.load("Test\\flood_model.pkl")
 feature_columns = joblib.load("Test\\feature_columns.pkl")
 
 # OpenWeather API Key
-API_KEY = "YOUR_API_KEY"
+# API_KEY = "YOUR_API_KEY"
+API_KEY = os.environ.get("OPENWEATHER_API_KEY")
 
-client = Groq(api_key="YOUR_GROQ_API_KEY")
+if not API_KEY:
+    raise ValueError("OPENWEATHER_API_KEY is not set in environment variables.")
+
+#client = Groq(api_key="YOUR_GROQ_API_KEY")
+groq_api_key = os.environ.get("GROQ_API_KEY")
+
+if not groq_api_key:
+    raise ValueError("GROQ_API_KEY is not set in environment variables.")
+
+client = Groq(api_key=groq_api_key)
 
 # 🏠 Route for Landing Page
 @app.route("/")
