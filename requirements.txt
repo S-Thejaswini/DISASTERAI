@@ -3,7 +3,5 @@ requests
 joblib
 pandas
 numpy
-datetime
-os
-pickle-mixin
 groq
+gunicorn
